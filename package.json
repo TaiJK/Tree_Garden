@@ -5,12 +5,30 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "node server.js"
+    "serve": "node server.js",
+    "watch": "node-sass -w src/scss/app.scss src/publicPic/css/app.css",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "bootstrap-icons": "^1.10.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-generator": "^4.16.1",
+    "express-handlebars": "^6.0.7",
+    "jsonwebtoken": "^9.0.0",
+    "lodash": "^4.17.21",
+    "mongoose": "^6.9.1",
+    "node-sass": "^8.0.0",
+    "swagger-ui-express": "^4.6.1",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20"
   }
 }

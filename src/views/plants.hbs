@@ -1,0 +1,20 @@
+<div class= "mt-4">
+    <div class = "row">
+
+
+      {{#each plants}}
+        <div class ="col-sm-6 co-lg-4">
+          <div class="card">
+            <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{this.namePlant}}</h5>
+              <p class="card-text">{{this.price}}</p>
+              <a href="#" class="btn btn-primary">Chọn mua</a>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+
+
+    </div>
+</div>

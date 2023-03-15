@@ -1,0 +1,346 @@
+openapi: 3.0.0
+
+info: 
+  title: The TreeGarden Project
+  description: This is the document of TreeGarden Function
+  version : 1.0.0
+  contact: 
+    email: tranductai@gspit.net
+  liscence: 
+    name: TreeGarden 1.0
+    url : "http://TreeGarden.org/"
+  server: [localhost:3000/]
+
+
+paths:
+#get all plants
+  /plants:
+    get:
+      tags:
+        - plants
+      summary: these are plants
+      description: these are all the plant we have 
+      parameters:
+      - $ref: "#/parameters/page"
+      - $ref: "#/parameters/limit"
+      responses: 
+        200:
+          description : success
+  
+# #get plant by page and limit query
+#   /plants/?:
+#     get:
+#       tags:
+#         - plants
+#       summary: get plant by query
+#       description: enter page number or/and limit
+#       parameters:
+#         required: true
+#         content:
+#           - page: page
+#             in: path
+#             schema: 
+#               type: number
+#           - limit: limit
+#             in: path
+#             schema:
+#               type: number
+#       responses:
+#         200:
+#           description : success
+
+
+#get all kinds
+  /kinds:
+    get:
+      tags:
+        - kinds
+      summary: these are kinds
+      description: these are all the kinds we have 
+      responses: 
+        200:
+          description : success
+    post:
+      tags:
+        - kinds
+      summary : post the kinds
+      produces:
+        - applcation/json
+      requestBody:
+        required: true 
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Kinds'
+      responses:
+          200:
+            description: post plant success!
+            schema: 
+              $ref: '#/components/schemas/Kinds'
+
+#post data
+  /plants/:
+    post:
+      tags:
+        - plants
+      summary: post the plant
+      produces:
+        - applcation/json
+      requestBody:
+        required: true 
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plants'
+      responses:
+          200:
+            description: post plant success!
+            schema: 
+            type: object
+            properties: 
+              id: 
+                type: number
+              namePlant:
+                type: string 
+              quantity: 
+                type: number
+              price:
+                type: number
+              image: 
+                type: string
+              discount:
+                type: number
+
+
+                
+#get plant by id
+  /plants/{id}:
+    get:
+      tags:
+        - plants
+      summary: plant by id
+      description: find  a plant by id
+      parameters:
+        - name : id
+          in: path
+          required : true 
+          schema:
+            type: string 
+      responses: 
+        200:
+          description: success 
+          schema: 
+            type: object
+            properties: 
+              id:
+                type : number
+              namePlant:
+                type: string 
+              quantity: 
+                type: number
+              price:
+                type: number
+              image: 
+                type: string
+              discount:
+                type: number             
+    put:
+      tags:
+        - plants
+      summary: plant by id
+      parameters:
+        - name : id
+          in: path
+          required : true 
+          schema:
+            type: string  
+      requestBody:
+        required: true 
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plants'
+      responses:  
+        200:
+          description: success 
+          schema: 
+            type: object
+            properties: 
+              id:
+                type : number
+              namePlant:
+                type: string 
+              quantity: 
+                type: number
+              price:
+                type: number
+              image: 
+                type: string
+              discount:
+                type: number
+    delete:
+      tags:
+        - plants
+      summary: Delete plant
+      description: This can only be done once
+      operationId: deletePlant
+      parameters:
+        - name: id
+          in: path
+          description: The id that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: success!
+
+
+  /user:
+    get:
+      tags:
+        - User  
+      summary: these are user
+      description: these are all the user account we have in system
+      parameters:
+      - $ref: "#/parameters/page"
+      - $ref: "#/parameters/limit"
+      responses:  
+        200:
+          description : success
+  /user/register:
+    post:
+      tags:
+        - User
+      summary: Register User
+      description: Create a user in database 
+      requestBody:
+        required: true
+        description: insert infor to system check
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: Register success!
+  
+
+
+  /user/login:
+    get:
+      tags:
+      - User
+      summary: login check
+      description: checkin from client
+      securityschema:
+      - $ref: '#/components/securityschema'
+      parameters:
+      - $ref: '#/components/schemas/login'
+      responses:
+        200:
+          description: success
+
+
+    
+
+components:
+  schemas:
+    Plants:
+      type: object
+      properties: 
+        id:
+          type : number
+        namePlant:
+          type: string 
+        quantity: 
+          type: number
+        price:
+          type: number
+        image: 
+          type: string
+        discount:
+          type: number
+    Kinds :
+      type: object
+      properties:
+        idK:
+          type : number
+        nameKind:
+          type: string 
+        size: 
+          type: string
+        tempt:
+          type: string
+        hight: 
+          type: number
+        often:
+          type: string 
+        list:
+          type : string
+    User:
+      type: object
+      properties:
+        nameUser:
+          type: string
+        Phone:
+          type: number
+        pass:
+          type : string
+        role:
+          type: string
+        history:
+          type: array
+  securityschema:
+    bearerAuth:
+      type: http
+      schema: bearer
+      bearerFormat: JWT
+security: 
+  - bearerAuth: []
+    login:
+      type: object
+      properties:
+        nameUser:
+          type: string
+        password:
+          type: string
+
+    
+
+
+ 
+
+definitions:
+
+ PaginationResponse:
+    type: object
+    properties:
+      totalrecords:
+        type: number
+      displayrecords:
+         type: number
+    xml:
+       name: PaginationResponsedata
+
+
+parameters:
+    limit:
+      name: limit
+      in: query
+      description: Number of records to return
+      type: number
+    page:
+      name: page
+      in: query
+      description: Start index for paging
+      type: number
+    # nameUser:
+    #   name: nameUser
+    #   in: body
+      
+    #   type: string
+    # password:
+    #   name: password 
+    #   in: body
+    # type: string

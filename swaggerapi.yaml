@@ -11,6 +11,78 @@ info:
     url : "http://TreeGarden.org/"
   server: [localhost:3000/]
 
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+  schemas:
+    Plants:
+      type: object
+      properties: 
+        namePlant:
+          type: string 
+        kind:
+          type: object
+        quantity: 
+          type: number
+        price:
+          type: number
+        image: 
+          type: string
+        discount:
+          type: number
+
+    Kinds :
+      type: object
+      properties:
+        nameKind:
+          type: string 
+        size: 
+          type: string
+        tempt:
+          type: string
+        hight: 
+          type: number
+        often:
+          type: string 
+        list:
+          type : string
+    User:
+      type: object
+      properties:
+        nameUser:
+          type: string
+        Phone:
+          type: number
+        password:
+          type : string
+        role:
+          type: string
+        history:
+          type: array
+    login:
+      type: object
+      properties:
+        nameUser:
+          type: string
+        password:
+          type: string
+    Cart:
+      type: object 
+      properties:
+        plantid: 
+          type: string
+        quantity:
+          type: number  # optional, arbitrary value for documentation purposes
+# 2) Apply the security globally to all operations
+security:
+  - bearerAuth: []  
+
+
+
+
 
 paths:
 #get all plants
@@ -21,8 +93,6 @@ paths:
         - plants
       summary: these are plants
       description: these are all the plant we have 
-      security:
-        - bearerAuth: []
       parameters:
       - $ref: "#/parameters/page"
       - $ref: "#/parameters/limit"
@@ -358,74 +428,7 @@ paths:
 
     
 
-components:
-  schemas:
-    Plants:
-      type: object
-      properties: 
-        namePlant:
-          type: string 
-        kind:
-          type: object
-        quantity: 
-          type: number
-        price:
-          type: number
-        image: 
-          type: string
-        discount:
-          type: number
-
-    Kinds :
-      type: object
-      properties:
-        nameKind:
-          type: string 
-        size: 
-          type: string
-        tempt:
-          type: string
-        hight: 
-          type: number
-        often:
-          type: string 
-        list:
-          type : string
-    User:
-      type: object
-      properties:
-        nameUser:
-          type: string
-        Phone:
-          type: number
-        password:
-          type : string
-        role:
-          type: string
-        history:
-          type: array
-    login:
-      type: object
-      properties:
-        nameUser:
-          type: string
-        password:
-          type: string
-    Cart:
-      type: object 
-      properties:
-        plantid: 
-          type: string
-        quantity:
-          type: number
-
-securityDefinitions:
-  bearerAuth:
-    type: apiKey
-    name: Authorization
-    in: header
-    description: Token-based authorization
-
+  
 definitions:
  PaginationResponse:
     type: object

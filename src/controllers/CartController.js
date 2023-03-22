@@ -1,7 +1,8 @@
 const Cart = require('../modules/cart')
 const Plant = require('../modules/plants')
 //add - delete 
-const addcart = require('../middleware/checkAddcart')
+const functionCart= require('../middleware/function')
+const { forEach } = require('lodash')
 class CartController{
     index(req,res){
         res.render('home')
@@ -16,7 +17,7 @@ class CartController{
         }
     }
 
-    async addCart (req,res){
+    async addcart (req,res){
             // console.log(idcart);
             const plant = req.body;
             const cart = await Cart.findOne({userId:req.user})
@@ -26,15 +27,15 @@ class CartController{
             }
             if(!cart.plants.length){//check if cart are empty
                 console.log('this cart is empty and about to add first plant');
-                addcart.add(cart,plant,plantInf);   
+                functionCart.add(cart,plant,plantInf);   
                 await Cart.findByIdAndUpdate(cart._id,cart)
                 return res.send(cart);
             }
-            const pos = addcart.findpos(cart,plant);
+            const pos = functionCart.findpos(cart,plant);
             // console.log(pos);
             if(pos < 0 ){
                   console.log('this old cart is going to add a new plant');
-                  addcart.add(cart,plant,plantInf);
+                  functionCart.add(cart,plant,plantInf);
                   await Cart.findByIdAndUpdate(cart._id,cart)
                     return res.send(cart);   
                 }
@@ -52,27 +53,16 @@ class CartController{
     }
 
     async updateCart(req,res){
+        try{
             const cart = await Cart.findOne({userId:req.user});
-            const plant = req.body;
-            // console.log(plant);
-            const pos = addcart.findpos(cart,plant);
-            // console.log(pos);
-            if(pos < 0)return res.send('wrong way');
-            // console.log(cart);
-            switch(plant.method){
-                case 'add':
-                   addcart.add1(cart,pos);
-                //    cart.plants[pos].quantity += 1;
-                   await Cart.findByIdAndUpdate(cart._id,cart);
-                   console.log('add 1 success');
-                   break;
-                case "decree":
-                    addcart.decree1(cart,pos);
-                    await Cart.findByIdAndUpdate(cart._id,cart);
-                    console.log('decree 1 success');
-                    break;
-            }
+            // console.log(typeof req.body);
+            const plant = req.body.plantArr;//plantArr
+            functionCart.update(cart,plant);           
             res.status(200).json(cart);
+        }catch(err){
+            res.status(403).json({message: err.message})
+        }
+          
     }
 
 
@@ -85,7 +75,7 @@ class CartController{
             const plant = req.body;
             // console.log(cart.plants[2]);
             // console.log(plant.plantId);
-            const indexPlant = addcart.findpos(cart,plant);
+            const indexPlant = cart.findpos(cart,plant);
             // console.log(indexPlant);
             if(indexPlant <0) return res.send('PLant not found!')
             cart.plants.splice(indexPlant,1);

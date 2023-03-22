@@ -34,7 +34,7 @@ class UserController{
   }
     async user_register(req,res) {
       try { 
-        console.log(req.body)
+        // console.log(req.body)
           const salt = await bcrypt.genSalt(10);
           const hashedPassword = await bcrypt.hash(req.body.password,salt);//faedgdsagsgs
           req.body.password = hashedPassword;
@@ -43,7 +43,7 @@ class UserController{
         //   console.log(user.password)
         //   console.log(hashedPassword) 
           const user = await User.create(req.body);
-          console.log(typeof user._id)
+          // console.log(typeof user._id)
           const payload ={
             userId : user._id
           }

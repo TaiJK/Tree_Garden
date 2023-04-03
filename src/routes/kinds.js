@@ -7,7 +7,7 @@ router.post('/post',verify,kindsController.postKind);
 router.put('/:id',verify,kindsController.putKind);
 router.delete('/:id',verify,kindsController.deleteKind);
 router.get('/:id',verify,kindsController.getKindsbyid);
-router.post('/sort',verify,kindsController.postSortKindtoPlant);
+router.post('/sort',kindsController.postSortKindtoPlant);
 router.get ('/',verify,kindsController.getKinds);
 
 module.exports = router;  

@@ -4,7 +4,6 @@ const mongoose = require('mongoose')
 const kindSchema  = mongoose.Schema(
     {
         nameKind:{
-
         type: String,
         required: [true," Enter the kind name: "]
         },

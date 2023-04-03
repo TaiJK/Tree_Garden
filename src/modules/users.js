@@ -15,14 +15,12 @@ const userSchema  = mongoose.Schema(
             type: String,
             required: true 
         },
-        role :{
-            type: String,
-            required : false
+        isWelcome:{
+        default : false 
         },
-        history:{
-            type: Array,
-            required : false 
-        }
+       listOrder :{
+        type: Array
+       }
     },
     {
         timestampt: true,

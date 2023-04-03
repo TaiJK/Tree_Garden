@@ -4,12 +4,12 @@ const Cart = require ('../modules/cart')
 const jwt= require('jsonwebtoken');
 const { json } = require('body-parser');
 require('dotenv').config()
+const Plant = require('../modules/plants')
 
 class UserController{
 
-    index(req,res) {
-       res.render('home');
-    //res.send(console.log("this is home page !"))
+    async index(req,res) {
+      
     }
     async login (req,res) {
       try{
@@ -106,7 +106,7 @@ class UserController{
                 res.status(500).json({message: error.message})
               }
           }
-    async deletePlant(req,res){
+    async deleteUSer(req,res){
       try {
         const {id} = req.params
         console.log(id) 

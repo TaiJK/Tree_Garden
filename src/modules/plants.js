@@ -6,15 +6,23 @@ const plantSchema  = mongoose.Schema(
         type: String,
         required: [true," Enter the plant name: "]
         },
-        kind:{
+    //    idKind:{
+    //         type: mongoose.Schema.Types.ObjectId, ref :'idKind'
+    //    },
+        nameKind:{
             type: Object,
-            require : true
+            require: true
         },
         quantity: {
             type : Number,
             required : true,
             default: 0
 
+        },
+        tag:{
+            type: Array,
+            require: false,
+            default: 'plant'
         },
         price: {
             type: Number,

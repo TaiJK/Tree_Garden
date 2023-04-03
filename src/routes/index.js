@@ -7,7 +7,7 @@ const payRouter = require ('./payment')
 
 function route(app){
 
-
+app.use('/home',UserRouter);
 app.use('/user',UserRouter);
 app.use('/plants',plantsRouter);
 app.use('/kinds',kindsRouter);

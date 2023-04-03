@@ -8,10 +8,7 @@ class PayController{
     }
     async getbill(req,res){
       try{
-        console.log(req.user);
-        const cart = await Cart.findById(req.params.id);
-        // console.log(cart);
-        // if(cart != null){
+
 
 
 

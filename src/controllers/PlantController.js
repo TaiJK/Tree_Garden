@@ -26,6 +26,7 @@ class PlantController{
       
       try{
               const id =req.params.id;
+              // console.log(id);
               // console.log('Request Id:', typeof(req.params));
               let plant = await Plant.findById(id);
               res.status(200).json(plant)
@@ -43,6 +44,7 @@ class PlantController{
                  return res.status(404).json({message:`cant not find the product with ID: ${id}`})
               }
               const updatedPlant = await Plant.findById(id);
+              console.log('plant updated !');
               res.status(200).json(updatedPlant);
               }
       catch(error){
@@ -56,6 +58,7 @@ class PlantController{
             const kind = await Kind.find({'nameKind': req.body.kind});
             req.body.kind = kind;
             const plants = await Plant.create(req.body)
+            console.log('post plant success! ');
             res.status(200).json(plants);
         
           }catch(error){

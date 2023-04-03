@@ -34,14 +34,22 @@ class KindController{
     async postSortKindtoPlant(req,res){
         try{
             console.log(req.body);
+            // Plant.kind.forEach(async item => {
+            //     const indexPlant = cart.plants.findIndex((id) =>{
+            //        return id.plantId === item.plantId;
+            //    })
+            const listkinds = await Plant.find({});
+        
+            console.log(listkinds.kind);
+
             const sort = await Plant.find({'nameKind' : req.body.nameKind})
             console.log (sort);
             res.status(200).json(sort);
-        }catch(error){
+             }catch(error){
             res.status(400).json({message : error.message})
-        }
+            }
 
-    }
+            }
     async postKind(req,res) {
     try { 
       console.log('post success kind')

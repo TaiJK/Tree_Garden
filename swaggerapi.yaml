@@ -86,215 +86,6 @@ security:
 
 paths:
 #get all plants
-  /plants:
-    get:
-      
-      tags:
-        - plants
-      summary: these are plants
-      description: these are all the plant we have 
-      parameters:
-      - $ref: "#/parameters/page"
-      - $ref: "#/parameters/limit"
-      responses: 
-        200:
-          description : success
-  
-# #get plant by page and limit query
-#   /plants/?:
-#     get:
-#       tags:
-#         - plants
-#       summary: get plant by query
-#       description: enter page number or/and limit
-#       parameters:
-#         required: true
-#         content:
-#           - page: page
-#             in: path
-#             schema: 
-#               type: number
-#           - limit: limit
-#             in: path
-#             schema:
-#               type: number
-#       responses:
-#         200:
-#           description : success
-
-
-#get all kinds
-  /kinds:
-    get:
-      tags:
-        - kinds
-      summary: these are kinds
-      description: these are all the kinds we have 
-      responses: 
-        200:
-          description : success
-  /kinds/{id}:
-    get:
-      tags:
-        - kinds
-      summary: get kinds by id kinds
-      description: these are all kinds we find by id 
-      parameters:
-        - name : id
-          in: path
-          required : true 
-          schema:
-            type: string 
-      responses:
-        200:
-          description: find success
-          schema: 
-            $ref: '#/components/schemas/Kinds'
-    delete:
-      tags:
-        - kinds
-      summary: delete kinds by id kinds
-      description: these are all kinds we delete by id 
-      parameters:
-        - name : id
-          in: path
-          required : true 
-          schema:
-            type: string 
-      responses:
-        200:
-          description: delete success
-          schema: 
-            $ref: '#/components/schemas/Kinds'
-    put:
-      tags:
-        - kinds
-      summary: changes kinds by id kinds
-      description: these are all kinds we changes by id 
-      parameters:
-        - name : id
-          in: path
-          required : true 
-          schema:
-            type: string 
-      requestBody:
-        required: true 
-        content: 
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Kinds'
-      responses:
-        200:
-          description: delete success
-          schema: 
-            $ref: '#/components/schemas/Kinds'
-  /kinds/post:
-    post:
-      tags:
-        - kinds
-      summary : post the kinds
-      produces:
-        - applcation/json
-      requestBody:
-        required: true 
-        content: 
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Kinds'
-      responses:
-          200:
-            description: post plant success!
-            schema: 
-              $ref: '#/components/schemas/Kinds'
-  
-  # /kinds/sort:
-
-#post data
-  /plants/:
-    post:
-      tags:
-        - plants
-      summary: post the plant
-      produces:
-        - applcation/json
-      requestBody:
-        required: true 
-        content: 
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Plants'
-      responses:
-          200:
-            description: post plant success!
-            schema: 
-            type: object
-            properties: 
-              $ref: '#/components/schemas/Plants'
-
-
-                
-#get plant by id
-  /plants/{id}:
-    get:
-      tags:
-        - plants
-      summary: plant by id
-      description: find  a plant by id
-      parameters:
-        - name : id
-          in: path
-          required : true 
-          schema:
-            type: string 
-      responses: 
-        200:
-          description: success 
-          schema: 
-            type: object
-            properties: 
-              $ref: '#/components/schemas/Plants'
-
-    put:
-      tags:
-        - plants
-      summary: plant by id
-      parameters:
-        - name : id
-          in: path
-          required : true 
-          schema:
-            type: string  
-      requestBody:
-        required: true 
-        content: 
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Plants'
-      responses:  
-        200:
-          description: success 
-          schema: 
-            type: object
-            properties: 
-              $ref: '#/components/schemas/Plants'
-    delete:
-      tags:
-        - plants
-      summary: Delete plant
-      description: This can only be done once
-      operationId: deletePlant
-      parameters:
-        - name: id
-          in: path
-          description: The id that needs to be deleted
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: success!
-
-
   /user/all:
     get:
       tags:
@@ -383,20 +174,220 @@ paths:
           description: success!
           schema: 
             $ref: '#/components/schemas/User'
+  /plants:
+    get:
+      
+      tags:
+        - Plants
+      summary: these are plants
+      description: these are all the plant we have 
+      parameters:
+      - $ref: "#/parameters/page"
+      - $ref: "#/parameters/limit"
+      responses: 
+        200:
+          description : success
+# #get plant by page and limit query
+#   /plants/?:
+#     get:
+#       tags:
+#         - plants
+#       summary: get plant by query
+#       description: enter page number or/and limit
+#       parameters:
+#         required: true
+#         content:
+#           - page: page
+#             in: path
+#             schema: 
+#               type: number
+#           - limit: limit
+#             in: path
+#             schema:
+#               type: number
+#       responses:
+#         200:
+#           description : success
 
-  /cart/addcart/{id}:
+
+#get all kinds
+  /kinds:
+    get:
+      tags:
+        - Kinds
+      summary: these are kinds
+      description: these are all the kinds we have 
+      responses: 
+        200:
+          description : success
+  /kinds/{id}:
+    get:
+      tags:
+        - Kinds
+      summary: get kinds by id kinds
+      description: these are all kinds we find by id 
+      parameters:
+        - name : id
+          in: path
+          required : true 
+          schema:
+            type: string 
+      responses:
+        200:
+          description: find success
+          schema: 
+            $ref: '#/components/schemas/Kinds'
+    delete:
+      tags:
+        - Kinds
+      summary: delete kinds by id kinds
+      description: these are all kinds we delete by id 
+      parameters:
+        - name : id
+          in: path
+          required : true 
+          schema:
+            type: string 
+      responses:
+        200:
+          description: delete success
+          schema: 
+            $ref: '#/components/schemas/Kinds'
     put:
-      tags: 
-        - Cart
-      summary: cart by id
-      description: find  a cart with id user follow
+      tags:
+        - Kinds
+      summary: changes kinds by id kinds
+      description: these are all kinds we changes by id 
+      parameters:
+        - name : id
+          in: path
+          required : true 
+          schema:
+            type: string 
+      requestBody:
+        required: true 
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Kinds'
+      responses:
+        200:
+          description: delete success
+          schema: 
+            $ref: '#/components/schemas/Kinds'
+  /kinds/post:
+    post:
+      tags:
+        - Kinds
+      summary : post the kinds
+      produces:
+        - applcation/json
+      requestBody:
+        required: true 
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Kinds'
+      responses:
+          200:
+            description: post plant success!
+            schema: 
+              $ref: '#/components/schemas/Kinds'
+  
+  # /kinds/sort:
+
+#post data
+  /plants/:
+    post:
+      tags:
+        - Plants
+      summary: post the plant
+      produces:
+        - applcation/json
+      requestBody:
+        required: true 
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plants'
+      responses:
+          200:
+            description: post plant success!
+            schema: 
+            type: object
+            properties: 
+              $ref: '#/components/schemas/Plants'
+
+
+                
+#get plant by id
+  /plants/{id}:
+    get:
+      tags:
+        - Plants
+      summary: plant by id
+      description: find  a plant by id
+      parameters:
+        - name : id
+          in: path
+          required : true 
+          schema:
+            type: string 
+      responses: 
+        200:
+          description: success 
+          schema: 
+            type: object
+            properties: 
+              $ref: '#/components/schemas/Plants'
+
+    put:
+      tags:
+        - Plants
+      summary: plant by id
+      parameters:
+        - name : id
+          in: path
+          required : true 
+          schema:
+            type: string  
+      requestBody:
+        required: true 
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plants'
+      responses:  
+        200:
+          description: success 
+          schema: 
+            type: object
+            properties: 
+              $ref: '#/components/schemas/Plants'
+    delete:
+      tags:
+        - Plants
+      summary: Delete plant
+      description: This can only be done once
+      operationId: deletePlant
       parameters:
         - name: id
           in: path
-          description: The id that needs to be find
+          description: The id that needs to be deleted
           required: true
           schema:
             type: string
+      responses:
+        200:
+          description: success!
+
+
+  /cart/addcart:
+    put:
+      tags: 
+        - Cart
+      summary: add to cart 
+      description: add a plants to a cart with id user follow
       requestBody:
         required: true 
         content: 
@@ -408,22 +399,38 @@ paths:
           description: success!
           schema: 
             $ref: '#/components/schemas/Cart'
-  /cart/{id}:
-    get:
+  /cart/updatecart:
+    put:
       tags:
         - Cart
       summary: cart by id
-      description: get present cart with id cart follow
-      parameters:
-        - name: id
-          in: path
-          description: The id that needs to be find
-          required: true
-          schema:
-            type: string
+      description: update cart with id cart and informations follow
+      requestBody:
+        required: true 
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cart'  
       responses:
         200:
           description: this is the present cart by your id 
+          schema: 
+            $ref: '#/components/schemas/Cart'
+    delete: 
+      tags: 
+        - Cart
+      summary: delete item in cart
+      requestBody:
+        required : true 
+      content: 
+        application/json:
+          chema:
+            $ref: '#/components/schemas/Cart'
+      responses:
+        200: 
+          description: update success
+          schema: 
+            $ref: '$components/schemas/Cart'
 
 
     

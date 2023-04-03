@@ -6,41 +6,15 @@ const app = express()
 const YAML = require('yamljs');
 const swaggerJSDoc = YAML.load('./swaggerapi.yaml');
 const swaggerUI = require('swagger-ui-express');
-//const { json } = require('express');
-// //const router = require('./src/routes/news');
-// const jwt= require('jsonwebtoken')
-//  require('dotenv').config();
 const bodyParser = require('body-parser')
-// parse application/x-www-form-urlencoded
 if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config({path: './.env'})
 }
 const StripePublickey = process.env.STRIPE_SECRET_KEY
 const StripeSecretKey = process.env.STRIPE_PUBLIC_KEY
-
-// console.log(StripeSecretKey);
-// console.log(StripePublickey);
-
-
-
-
-
-
-
-
-
-
 app.use(bodyParser.urlencoded({ extended: true }))
 const route = require('./src/routes/index');
-// const verify = require ('./src/middleware/auth')
-// const bcrypt = require('bcrypt');
-
-// parse application/json
 app.use(bodyParser.json())   
-
-
-
-
 
 //template engine 
 app.engine('hbs',handlebars({

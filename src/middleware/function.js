@@ -21,8 +21,8 @@ async function add(cart,plant,plantInf){
 
 }
 async function ordercheck(cart){
-    console.log(cart);
-    console.log(cart.plants.quan);
+    // console.log(cart);
+    // console.log(cart.plants.quan);
     
     // Order.push(cart);
     // console.log(Order.orderinfo);

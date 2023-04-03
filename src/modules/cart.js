@@ -7,7 +7,7 @@ const cartSchema = mongoose.Schema(
         },
         plants:{
             type: Array,
-            require: false,
+            require: true
         }
     }
     

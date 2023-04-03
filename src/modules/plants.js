@@ -10,8 +10,7 @@ const plantSchema  = mongoose.Schema(
     //         type: mongoose.Schema.Types.ObjectId, ref :'idKind'
     //    },
         nameKind:{
-            type: Object,
-            require: true
+            type: mongoose.Schema.Types.String, ref:'nameKind' 
         },
         quantity: {
             type : Number,

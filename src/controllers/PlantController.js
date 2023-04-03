@@ -38,7 +38,7 @@ class PlantController{
 
     async putPlant_update(req,res)  {
       try {
-              let id = req.params.id
+              const id = req.body.plantId
               const plant = await Plant.findByIdAndUpdate(id,req.body)   
               if(!plant){
                  return res.status(404).json({message:`cant not find the product with ID: ${id}`})

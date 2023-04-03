@@ -5,7 +5,7 @@ const userSchema  = mongoose.Schema(
         type: String,
         required: [true," Enter the user name: "]
         },
-        Phone: {
+        phone: {
             type : Number,
             required : true,
             default: 0

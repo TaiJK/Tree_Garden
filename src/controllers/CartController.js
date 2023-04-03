@@ -11,6 +11,9 @@ class CartController{
     async presentCart(req,res){
         try{
             const cart = await Cart.findOne({userId:req.user})
+            if(!cart){
+                return res.send('your cart is empty ! ')
+            }
             res.status(200).json(cart);
         }
         catch(error){
@@ -21,16 +24,16 @@ class CartController{
     async addcart (req,res){
             // console.log(req.user);
             // console.log(req.body);
-            const plant = req.body;
-            // console.log(req.user);
+            // const plant = req.body;
+            console.log(req.user);   
             const cart = await Cart.findOne({userId:req.user})
-            // console.log(cart);
+            //console.log(cart);
             const plantInf = await Plant.findById(plant.plantId);
             // console.log(plantInf);
             if(plantInf.quantity <=  plant.quantity){ //bad quantity request 
                 return  res.send('order to many plants! fail to order! ');
             }
-            console.log(cart.plants.length);
+            // console.log(cart.plants.length);
             if(!cart.plants.length){//check if cart are empty
                 console.log('this cart is empty and about to add first plant');
                 functionCart.add(cart,plant,plantInf);
@@ -51,6 +54,7 @@ class CartController{
             cart.plants[pos].price = plantInf.price;
             cart.plants[pos].discount = plantInf.discount;     
             functionCart.ordercheck(cart) 
+            await Cart.findByIdAndUpdate(cart._id,cart)
             res.status(200).json(cart);   
     }
     
@@ -74,19 +78,35 @@ class CartController{
             const cart = await Cart.findOne({userId:req.user});
             // console.log(cart);
             const plant = req.body;
+            console.log(plant);
             // console.log(cart.plants[2]);
             // console.log(plant.plantId);
-            const indexPlant = cart.findpos(cart,plant);
+            const indexPlant = functionCart.findpos(cart,plant);
             // console.log(indexPlant);
-            if(indexPlant <0) return res.send('PLant not found!')
+            if(indexPlant <0) return res.send('Plant not found!')
             cart.plants.splice(indexPlant,1);
             await Cart.findByIdAndUpdate(cart._id,cart)
+            console.log('delete item success !');
+            //return cart updated after delete
             res.status(200).json(cart)
 
         }catch(err){
             res.status(404).json({message: err.message})
         }
     }
+
+    async deleteCart(req,res){
+        try{
+            const cart = await Cart.findOne({userId:req.user});
+            await Cart.findByIdAndDelete(cart,cart.plants)
+            console.log('delete cart success !');
+            res.status(200).json(cart);
+
+        }catch(error){
+            res.status(404).json({error: error.message})
+        }
+    }
+
 
     
 

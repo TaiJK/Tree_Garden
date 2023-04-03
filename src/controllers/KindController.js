@@ -69,9 +69,9 @@ class KindController{
         const Kinds = await Kind.findByIdAndUpdate(id,req.body)   
         if(!Kinds){
             return res.status(404).json({message:`cant not find the product with ID: ${id}`})
-
             }
             const updatedKinds = await Kind.findById(id);
+            console.log('Kind updated !');
             res.status(200).json(updatedKinds);
         }
       catch(error){

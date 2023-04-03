@@ -94,8 +94,12 @@ class UserController{
       }
       async putUser_update(req,res)  {
         try {
-                let id = req.params.id
-                const user = await User.findByIdAndUpdate(id,req.body)   
+
+                const userId = req.header ;
+                const user = await User.findOne({nameUser});
+                if(await bcrypt.compare(req.body.password,user.password)){
+                await User.findByIdAndUpdate(userId,req.body)   
+                }
                 if(!user){
                    return res.status(404).json({message:`cant not find User with ID: ${id}`})
                 }

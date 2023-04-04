@@ -7,8 +7,6 @@ class KindController{
     async getKinds (req,res) {
     try{
         const kinds = await Kind.find({});
-
-       
        // res.send('Wellcome to kind of plant')
         res.status(200).json(kinds);
 

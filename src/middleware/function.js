@@ -20,14 +20,24 @@ async function add(cart,plant,plantInf){
 
 
 }
-async function ordercheck(cart){
-    // console.log(cart);
-    // console.log(cart.plants.quan);
-    
-    // Order.push(cart);
-    // console.log(Order.orderinfo);
-
-
+async function order(array,cart){
+    // tính toán hóa đơn
+    let temporaryTotal = 0;
+    let totalDiscount = 0;
+    let total = 0;
+    array.forEach(getTemporaryTotal);
+    function getTemporaryTotal(item){
+        temporaryTotal+= item.price*item.quantity ;
+        // console.log(temporaryTotal);
+        totalDiscount = totalDiscount + (item.price*item.quantity*item.discount/100);
+        // console.log(totalDiscount);
+        total = temporaryTotal- totalDiscount;
+        // console.log(total);
+    }
+    Object.assign(temporaryTotal,cart.total)
+    Object.assign(totalDiscount,cart.discount)
+    Object.assign(total,cart.finalTotal)
+    return [temporaryTotal,totalDiscount,total];
 }
 async function  update(cart,plant){
     // console.log(cart);
@@ -37,7 +47,6 @@ async function  update(cart,plant){
          const indexPlant = cart.plants.findIndex((id) =>{
             return id.plantId === item.plantId;
         })
-       
         // console.log(indexPlant);
         // console.log(cart.plants[indexPlant]);
         // console.log(plant[indexPlant]);
@@ -59,8 +68,6 @@ function findpos(cart,plant){
 module.exports ={
     add,
     findpos,
-    // add1,
-    // decree1,
     update,
-    ordercheck
+    order
 }

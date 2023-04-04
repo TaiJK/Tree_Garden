@@ -1,6 +1,7 @@
 const Cart = require('../modules/cart')
 const Plant = require('../modules/plants')
-// const Order = require ('../modules/order')
+const Order = require ('../modules/order')
+const User = require('../modules/users')
 //add - delete 
 const functionCart= require('../middleware/function')
 const { forEach } = require('lodash')
@@ -20,11 +21,10 @@ class CartController{
             res.status(400).json({message: error.message})
         }
     }
-
     async addcart (req,res){
             // console.log(req.user);
             // console.log(req.body);
-            // const plant = req.body;
+            const plant = req.body;
             console.log(req.user);   
             const cart = await Cart.findOne({userId:req.user})
             //console.log(cart);
@@ -53,7 +53,7 @@ class CartController{
             cart.plants[pos].quantity +=  plant.quantity;
             cart.plants[pos].price = plantInf.price;
             cart.plants[pos].discount = plantInf.discount;     
-            functionCart.ordercheck(cart) 
+            // functionCart.ordercheck(cart) 
             await Cart.findByIdAndUpdate(cart._id,cart)
             res.status(200).json(cart);   
     }
@@ -95,6 +95,38 @@ class CartController{
         }
     }
 
+    async confirmCart(req,res){
+        try{
+            // if(req.body != 'xác nhận'){
+            //     return res.send('hãy xác nhận đơn hàng!');
+            // }
+            const user = await User.findById(req.user)
+            // console.log(user);
+            const cart = await Cart.findOne({userId:req.user});
+            // console.log(cart);
+            // console.log(user);
+            // console.log(cartconfirm);
+            let array = cart.plants; 
+            // const total = await functionOrder.order(array,cart);
+            const total = await functionCart.order(array,cart)
+            const payload ={
+                userId : user._id,
+                nameUser: user.nameUser,
+                phone: user.phone,
+                cartId : cart._id,
+                plants: cart.plants,
+                discount: total[1],
+                total: total[0],
+                finalTotal: total[2],
+              } 
+           const order = await Order.create(payload);
+           console.log('Confirm success!');
+           res.status(200).json(order)
+        }catch(error){
+            res.status(404).json({error: error.message})
+        }
+    }
+
     async deleteCart(req,res){
         try{
             const cart = await Cart.findOne({userId:req.user});
@@ -106,12 +138,4 @@ class CartController{
             res.status(404).json({error: error.message})
         }
     }
-
-
-    
-
-
-
-
-
 }module.exports = new CartController();

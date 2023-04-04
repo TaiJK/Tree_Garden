@@ -18,7 +18,7 @@ const userSchema  = mongoose.Schema(
         isWelcome:{
         default : false 
         },
-       listOrder :{
+        listOrder :{
         type: Array
        }
     },

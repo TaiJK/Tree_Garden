@@ -4,8 +4,11 @@ const orderSchema = mongoose.Schema(
         userId: {
             type: mongoose.Schema.Types.ObjectId , ref: 'userId' 
         },
-        CartId: {
+        cartId: {
             type: mongoose.Schema.Types.ObjectId , ref: 'CartId' 
+        },
+        nameUser:{
+            type: mongoose.Schema.Types.String, ref:' nameUser'
         },
         phone: {
             type: mongoose.Schema.Types.Number ,ref: 'phone'
@@ -13,16 +16,12 @@ const orderSchema = mongoose.Schema(
         plants:{
             type: mongoose.Schema.Types.Array ,ref: 'plants'
         },
-        nameUser:{
-            type: mongoose.Schema.Types.String, ref:' nameUser'
-        },
+      
         total:{
-            type: Number,
-            require: true,
-            default: 0
+            type: mongoose.Schema.Types.Number, ref: 'temporaryTotal'
         },
         discount:{
-            type: mongoose.Schema.Types.String, ref: 'discount'
+            type: mongoose.Schema.Types.String, ref: 'totalDiscount'
         },
         shipment:{
             type: Number,
@@ -30,12 +29,23 @@ const orderSchema = mongoose.Schema(
             default: 0,
         },
         finalTotal:{
+            type: mongoose.Schema.Types.Number, ref: 'total'
+        },
+        recive:{
             type: Number,
-            require: true,
-            default : 0
+            default: 0 
+        },
+        change:{
+            type: Number,
+            default: 0
         },
         paymentMethod:{
-            type: Boolean,
+            type: String,
+            require: true,
+            default: 'Cash in hand'
+        },
+        statusOrder:{
+            type: String,
             require : true
         }
     }

@@ -11,6 +11,7 @@ router.put('/addcart',verify,cartController.addcart);
 router.delete('/deleteitem',verify,cartController.deleteItemCart);
 router.delete('/deletecart',verify,CartController.deleteCart);
 router.put('/update',verify,cartController.updateCart);
+router.put('/confirm',verify,cartController.confirmCart);
 router.get('/',verify,cartController.presentCart);
 
 
